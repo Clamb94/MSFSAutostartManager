@@ -5,7 +5,6 @@ namespace MSFSAutostartManager
 {
     internal class Program
     {
-
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AddOptions))]
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(RemoveOptions))]
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IsEnabledOptions))]
