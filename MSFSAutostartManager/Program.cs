@@ -22,10 +22,8 @@ namespace MSFSAutostartManager
         private static int RunAddAndReturnExitCode(AddOptions opts)
         {
             try
-            {
-                FindExeXml finder = new FindExeXml();
-                string xmlPath = finder.ExeXmlPath;
-                ModifyAutostart modifier = new(opts.Name, xmlPath);
+            {              
+                ModifyAutostart modifier = new(opts.Name, opts.XmlPath);
 
                 modifier.Add(opts);
                 return 0;
@@ -42,9 +40,7 @@ namespace MSFSAutostartManager
         {
             try
             {
-                FindExeXml finder = new FindExeXml();
-                string xmlPath = finder.ExeXmlPath;
-                ModifyAutostart modifier = new(opts.Name, xmlPath);
+                ModifyAutostart modifier = new(opts.Name, opts.XmlPath);
 
                 modifier.Remove();
                 return 0;
@@ -60,9 +56,7 @@ namespace MSFSAutostartManager
         {
             try
             {
-                FindExeXml finder = new FindExeXml();
-                string xmlPath = finder.ExeXmlPath;
-                ModifyAutostart modifier = new(opts.Name, xmlPath);
+                ModifyAutostart modifier = new(opts.Name, opts.XmlPath);
 
                 Console.WriteLine(modifier.CheckEnabled().ToString());
                 return 1;

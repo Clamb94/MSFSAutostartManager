@@ -8,14 +8,17 @@ using System.Xml;
 
 namespace MSFSAutostartManager
 {
-    internal class ModifyAutostart
+    public class ModifyAutostart
     {
         public string XmlPath { get; private set; }
         public string AddonName { get; private set; }
 
-        public ModifyAutostart(string addonName, string xmlPath)
+        public ModifyAutostart(string addonName, string xmlPath = "")
         {
-            XmlPath = xmlPath;
+
+            FindExeXml finder = new FindExeXml(xmlPath);
+            XmlPath = finder.ExeXmlPath;
+
             AddonName = addonName;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -120,9 +123,9 @@ namespace MSFSAutostartManager
             if (node == null)
             {
                 Console.WriteLine($"No entry found with <Name>{AddonName}</Name>");
-                
+
             }
-           
+
             node?.ParentNode?.RemoveChild(node);
             Console.WriteLine("Entry removed. Saving file.");
             doc.Save(XmlPath);

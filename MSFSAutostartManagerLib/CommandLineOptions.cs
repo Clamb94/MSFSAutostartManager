@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MSFSAutostartManager
 {
     [Verb("add", HelpText = "Add file contents to the index.")]
-    class AddOptions
+    public class AddOptions
     {
         [Option('n', "name", Required = true, HelpText = "<Name> of the addon to be launched. Case sensitive!")]
         public string Name { get; set; } = null!;
@@ -38,7 +38,7 @@ namespace MSFSAutostartManager
 
     }
     [Verb("remove", HelpText = "Record changes to the repository.")]
-    class RemoveOptions
+    public class RemoveOptions
     {
         [Option('n', "name", Required = true, HelpText = "<Name> of the addon to be launched")]
         public string Name { get; set; } = null!;
@@ -47,7 +47,7 @@ namespace MSFSAutostartManager
         public string XmlPath { get; set; } = String.Empty;
     }
     [Verb("checkEnabled", HelpText = "Clone a repository into a new directory.")]
-    class IsEnabledOptions
+    public class IsEnabledOptions
     {
         [Option('n', "name", Required = true, HelpText = "<Name> of the addon to be launched")]
         public string Name { get; set; } = null!;
