@@ -1,5 +1,5 @@
-﻿using CommandLine;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using CommandLine;
 
 namespace MSFSAutostartManager
 {
@@ -10,7 +10,6 @@ namespace MSFSAutostartManager
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IsEnabledOptions))]
         static int Main(string[] args)
         {
-            //string[] modifiedArgs = ModifyArguments(args);
             return CommandLine.Parser.Default.ParseArguments<AddOptions, RemoveOptions, IsEnabledOptions>(args)
                 .MapResult(
                   (AddOptions opts) => RunAddAndReturnExitCode(opts),

@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>MSFSAutostartManager</PackageId>
     <Title>MSFSAutostartManager</Title>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Axel Reinemuth</Authors>
     <Company>Axel Reinemuth</Company>
     <RepositoryUrl>https://github.com/Clamb94/MSFSAutostartManager</RepositoryUrl>

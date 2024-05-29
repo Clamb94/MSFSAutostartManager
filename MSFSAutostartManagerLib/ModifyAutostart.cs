@@ -13,6 +13,8 @@ namespace MSFSAutostartManager
         public string XmlPath { get; private set; }
         public string AddonName { get; private set; }
 
+        private XmlParserContext context = new XmlParserContext(null, null, null, XmlSpace.None);
+
         public ModifyAutostart(string addonName, string xmlPath = "")
         {
 
@@ -22,6 +24,8 @@ namespace MSFSAutostartManager
             AddonName = addonName;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            context.Encoding = Encoding.GetEncoding(1252);
+
             VerifyFilePathValid(XmlPath);
         }
 
@@ -37,17 +41,31 @@ namespace MSFSAutostartManager
             }
         }
 
+        private XmlReader ReadXML()
+        {
+            if (!File.Exists(XmlPath))
+            {
+                throw new FileNotFoundException(XmlPath);
+            }
+
+            string xml = File.ReadAllText(XmlPath);
+            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            if (xml.StartsWith(_byteOrderMarkUtf8, StringComparison.Ordinal))
+            {
+                xml = xml.Remove(0, _byteOrderMarkUtf8.Length);
+            }
+
+            return XmlReader.Create(new StringReader(xml), null, context);
+        }
+
         public void Add(AddOptions opts)
         {
 
             XmlDocument doc = new XmlDocument();
 
-            var context = new XmlParserContext(null, null, null, XmlSpace.None);
-            context.Encoding = Encoding.GetEncoding(1252);
-
             if (File.Exists(XmlPath))
             {
-                using (var r = XmlReader.Create(XmlPath, null, context))
+                using (var r = ReadXML())
                 {
                     Console.WriteLine("Found existing EXE.xml");
                     doc.Load(r);
@@ -111,10 +129,7 @@ namespace MSFSAutostartManager
 
             XmlDocument doc = new XmlDocument();
 
-            var context = new XmlParserContext(null, null, null, XmlSpace.None);
-            context.Encoding = Encoding.GetEncoding(1252);
-
-            using (var r = XmlReader.Create(XmlPath, null, context))
+            using (var r = ReadXML())
             {
                 doc.Load(r);
             }
@@ -142,10 +157,7 @@ namespace MSFSAutostartManager
 
             XmlDocument doc = new XmlDocument();
 
-            var context = new XmlParserContext(null, null, null, XmlSpace.None);
-            context.Encoding = Encoding.GetEncoding(1252);
-
-            using (var r = XmlReader.Create(XmlPath, null, context))
+            using (var r = ReadXML())
             {
                 doc.Load(r);
             }
